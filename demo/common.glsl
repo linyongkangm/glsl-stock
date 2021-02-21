@@ -15,6 +15,6 @@ vec2 ratioResolution(vec2 xy,float ratio){
 
 // 笛卡尔坐标系
 float cartesianCoordinateSystem(vec2 st){
-  float pct=smoothstep(.05,0.,abs(st.y))+smoothstep(.05,0.,abs(st.x));
+  float pct=max(smoothstep(.05,0.,abs(st.y)),smoothstep(.05,0.,abs(st.x)));
   return pct;
 }
