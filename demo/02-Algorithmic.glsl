@@ -1,16 +1,5 @@
-#ifdef GL_ES
-precision mediump float;
-#endif
+#include "demo/common.glsl"
 
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-
-// 笛卡尔坐标系
-float cartesianCoordinateSystem(vec2 st){
-  float pct=smoothstep(.05,0.,abs(st.y))+smoothstep(.05,0.,abs(st.x));
-  return pct;
-}
 // x=[-5.0,-5.0];y=[-5.0, 5.0]
 float plot(vec2 st){
   float y=1.;
@@ -36,8 +25,7 @@ float plot(vec2 st){
 }
 
 void main(){
-  vec2 st=gl_FragCoord.xy/u_resolution;// 规整x，y到[0,1]
-  st=(st-.5)*2.*5.;// [0, 1] -> [-5, 5]
+  vec2 st=ratioResolution(gl_FragCoord.xy,10.);
   vec3 color=vec3(0.);// 背景色
   color+=cartesianCoordinateSystem(st)*vec3(1.,0.,0.);// 绘制笛卡尔坐标系
   color+=plot(st)*vec3(0.,1.,0.);// 绘制函数曲线
